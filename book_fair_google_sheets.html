@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Literacy Book Fair Worksheet / Fiche salon du livre</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5f6b7a;
+      --line: #d9dee8;
+      --accent: #304ffe;
+      --accent2: #00695c;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --ok: #047857;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+    header {
+      background: linear-gradient(135deg, #2639c7, #00695c);
+      color: white;
+      padding: 36px 18px;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 4vw, 2.8rem); line-height: 1.1; }
+    h2 { margin: 0 0 14px; font-size: 1.35rem; }
+    h3 { margin: 0 0 8px; font-size: 1.05rem; }
+    p { margin: 0 0 10px; }
+    .subtitle { opacity: .92; max-width: 760px; font-size: 1.05rem; }
+    main { padding: 22px 18px 60px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      margin: 18px 0;
+    }
+    .grid { display: grid; gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 760px) { .grid.two, .grid.three { grid-template-columns: 1fr; } }
+    label { display: block; font-weight: 700; margin-bottom: 6px; }
+    .hint { color: var(--muted); font-size: .92rem; margin-top: 4px; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      background: #fff;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .mini { min-height: 50px; }
+    .task-title {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      color: white;
+      background: var(--accent);
+      font-weight: 800;
+    }
+    .langbox {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 12px;
+      color: #344054;
+      margin: 10px 0 14px;
+    }
+    .langbox strong { color: #111827; }
+    .checks { display: grid; gap: 8px; margin: 8px 0; }
+    .checks label { display: flex; gap: 10px; font-weight: 500; align-items: flex-start; margin: 0; }
+    .checks input { width: auto; margin-top: 4px; }
+    .radio-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
+    .radio-row label { font-weight: 500; display: inline-flex; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid #d9dee8; border-radius: 999px; background: #fff; }
+    .radio-row input { width: auto; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    button, .buttonlike {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 800;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .primary { background: var(--accent); color: white; }
+    .secondary { background: #e8eefc; color: #16237a; }
+    .neutral { background: #eef2f7; color: #111827; }
+    .danger { background: #fee2e2; color: var(--bad); }
+    .scorebox {
+      border-radius: var(--radius);
+      padding: 16px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      display: none;
+      margin-top: 16px;
+    }
+    .scorebox.warn { background: #fffbeb; border-color: #fde68a; }
+    .scorebox.bad { background: #fef2f2; border-color: #fecaca; }
+    .scorebig { font-size: 2rem; font-weight: 900; margin: 4px 0; }
+    .small { font-size: .9rem; color: var(--muted); }
+    .rubric table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 12px; }
+    .rubric th, .rubric td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: top; }
+    .rubric th { background: #f1f5f9; }
+    .footer-note { color: var(--muted); font-size: .9rem; margin-top: 12px; }
+    .save-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: var(--ok);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+    .autosave-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    .pdf-page { background: white; color: #111827; padding: 18px; }
+    .pdf-page h1 { color: #111827; font-size: 1.7rem; }
+    .pdf-section { border-bottom: 1px solid #e5e7eb; padding: 10px 0; }
+    .pdf-section h2 { font-size: 1.05rem; margin-bottom: 6px; }
+    .pdf-field { margin: 4px 0; white-space: pre-wrap; }
+    .pdf-label { font-weight: 700; }
+    .print-only { display: none; }
+    @media print {
+      body { background: white; }
+      header, .actions, .no-print { display: none !important; }
+      .card { box-shadow: none; border-color: #aaa; page-break-inside: avoid; }
+      .print-only { display: block; }
+      textarea { min-height: 70px; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Book Fair Media Lab</h1>
+      <p class="subtitle">Pracovní list / Worksheet / Fiche de travail — mediální gramotnost na knižním veletrhu.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    
+<section class="card">
+  <div>
+    <label for="groupName">Název skupiny / Group name / Nom du groupe *</label>
+    <input id="groupName" required placeholder="např. Radio Wolves" />
+  </div>
+  <div class="grid two" style="margin-top:14px;">
+    <div>
+      <label for="members">Členové / Members / Membres *</label>
+      <textarea id="members" class="mini" placeholder="Jména členů skupiny"></textarea>
+    </div>
+    <div>
+      <label for="languages">Jazyky použité při práci / Languages used / Langues utilisées</label>
+      <input id="languages" placeholder="English, Français, Čeština…" />
+    </div>
+  </div>
+</section>
+
+
+    <section class="card">
+      <div class="task-title"><span class="badge">1</span><h2>First impressions / První dojmy / Premières impressions</h2></div>
+      <div class="langbox">
+        <p><strong>CZ:</strong> Nejdeme jen „na knihy“. Sledujeme, jak se obsah prodává, komu je určený a jak nás ovlivňuje.</p>
+        <p><strong>EN:</strong> We are not only looking at books. We are studying how content is promoted, who it targets, and how it influences us.</p>
+        <p><strong>FR:</strong> Nous ne regardons pas seulement les livres. Nous étudions comment le contenu est présenté, à qui il s’adresse et comment il nous influence.</p>
+      </div>
+      <label for="firstImpression">Co tě po příchodu nejvíc zaujalo? / What caught your attention first? / Qu’est-ce qui a attiré ton attention en premier ?</label>
+      <textarea id="firstImpression"></textarea>
+    </section>
+
+    <section class="card">
+      <div class="task-title"><span class="badge">2</span><h2>Book marketing analysis / Analýza marketingu knihy / Analyse marketing d’un livre</h2></div>
+      <div class="grid two">
+        <div>
+          <label for="bookTitle">Název knihy / Book title / Titre du livre *</label>
+          <input id="bookTitle" />
+        </div>
+        <div>
+          <label for="targetAudience">Cílová skupina / Target audience / Public cible</label>
+          <input id="targetAudience" placeholder="děti, teenageři, dospělí, fanoušci fantasy…" />
+        </div>
+      </div>
+      <div class="grid two" style="margin-top:14px;">
+        <div>
+          <label for="coverDetails">Jak obálka přitahuje pozornost? / How does the cover attract attention? / Comment la couverture attire-t-elle l’attention ?</label>
+          <textarea id="coverDetails"></textarea>
+        </div>
+        <div>
+          <label for="promise">Jaký slib kniha dává čtenáři? / What promise does it make? / Quelle promesse fait-elle au lecteur ?</label>
+          <textarea id="promise"></textarea>
+        </div>
+      </div>
+      <p class="hint">Tip: barvy, font, ilustrace, slavné jméno, emoce, strach, humor, „tajemství“, „pravda“, „nejlepší“.</p>
+    </section>
+
+    <section class="card">
+      <div class="task-title"><span class="badge">3</span><h2>Information or advertising? / Informace, nebo reklama? / Information ou publicité ?</h2></div>
+      <label for="standDescription">Vyber stánek a popiš ho. / Choose one stand and describe it. / Choisis un stand et décris-le.</label>
+      <textarea id="standDescription"></textarea>
+      <div class="checks">
+        <label><input type="checkbox" id="adColors" /> Používá výrazné barvy / Uses strong colours / Utilise des couleurs fortes</label>
+        <label><input type="checkbox" id="adFamous" /> Opírá se o slavné jméno nebo autoritu / Uses a famous name or authority / Utilise un nom célèbre ou une autorité</label>
+        <label><input type="checkbox" id="adEmotion" /> Vyvolává emoce / Uses emotions / Utilise les émotions</label>
+        <label><input type="checkbox" id="adUrgency" /> Vytváří naléhavost / Creates urgency / Crée un sentiment d’urgence</label>
+      </div>
+      <label for="infoOrAd">Je to spíš informace, reklama, nebo obojí? Vysvětli. / Is it information, advertising, or both? Explain. / Est-ce une information, une publicité, ou les deux ? Explique.</label>
+      <textarea id="infoOrAd"></textarea>
+    </section>
+
+    <section class="card">
+      <div class="task-title"><span class="badge">4</span><h2>Mini interview / Minirozhovor / Mini-entretien</h2></div>
+      <p class="hint">Pokud není vhodné se ptát vystavovatele, můžete odpovědi odhadnout z pozorování.</p>
+      <div class="grid two">
+        <div>
+          <label for="interviewPerson">S kým jste mluvili? / Who did you speak to? / Avec qui avez-vous parlé ?</label>
+          <input id="interviewPerson" placeholder="vystavovatel, autor, návštěvník…" />
+        </div>
+        <div>
+          <label for="interviewLang">Jazyk rozhovoru / Interview language / Langue de l’entretien</label>
+          <input id="interviewLang" placeholder="EN / FR / CZ" />
+        </div>
+      </div>
+      <div class="grid two" style="margin-top:14px;">
+        <div>
+          <label for="question1">Otázka 1 / Question 1</label>
+          <input id="question1" value="Who is this book or stand for?" />
+          <textarea id="answer1" placeholder="Odpověď / Answer / Réponse"></textarea>
+        </div>
+        <div>
+          <label for="question2">Otázka 2 / Question 2</label>
+          <input id="question2" value="Why should people read or visit this?" />
+          <textarea id="answer2" placeholder="Odpověď / Answer / Réponse"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="task-title"><span class="badge">5</span><h2>Manipulation detector / Detektor manipulace / Détecteur de manipulation</h2></div>
+      <label for="manipExample">Najděte jeden příklad možného ovlivňování. / Find one example of possible persuasion or manipulation. / Trouvez un exemple possible de persuasion ou de manipulation.</label>
+      <textarea id="manipExample"></textarea>
+      <label for="manipHow">Jak přesně to funguje? / How exactly does it work? / Comment cela fonctionne-t-il exactement ?</label>
+      <textarea id="manipHow" placeholder="např. pracuje se strachem, slibuje jednoduché řešení, používá autoritu, vytváří tlak…"></textarea>
+      <div class="radio-row">
+        <label><input type="radio" name="manipStrength" value="low" /> slabé / low / faible</label>
+        <label><input type="radio" name="manipStrength" value="medium" /> střední / medium / moyen</label>
+        <label><input type="radio" name="manipStrength" value="high" /> silné / high / fort</label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="task-title"><span class="badge">6</span><h2>Live radio report / Rádiový vstup / Reportage radio</h2></div>
+      <div class="langbox">
+        <p><strong>EN starter:</strong> We are reporting from the book fair. We found out that… One thing that influenced us was… In our opinion, this is / is not manipulation because…</p>
+        <p><strong>FR starter:</strong> Nous sommes au salon du livre. Nous avons découvert que… Une chose qui nous a influencés était… À notre avis, c’est / ce n’est pas de la manipulation parce que…</p>
+        <p><strong>CZ začátek:</strong> Hlásíme se z knižního veletrhu. Zjistili jsme, že… Ovlivnilo nás hlavně… Podle nás jde / nejde o manipulaci, protože…</p>
+      </div>
+      <label for="radioScript">Napište text 45–60 sekundového vstupu. / Write a 45–60 second radio report. / Écrivez un reportage radio de 45–60 secondes.</label>
+      <textarea id="radioScript" style="min-height:130px;"></textarea>
+    </section>
+
+    <section class="card rubric">
+      <h2>7. Self-evaluation / Sebehodnocení / Auto-évaluation</h2>
+      <table>
+        <thead><tr><th>Kritérium / Criterion / Critère</th><th>Body / Points</th></tr></thead>
+        <tbody>
+          <tr><td>Vyplněná skupina a členové / Group and members completed / Groupe et membres remplis</td><td>0–2</td></tr>
+          <tr><td>Konkrétní pozorování z veletrhu / Specific observations / Observations concrètes</td><td>0–4</td></tr>
+          <tr><td>Analýza marketingu a cílové skupiny / Marketing and audience analysis / Analyse marketing et public cible</td><td>0–4</td></tr>
+          <tr><td>Rozhovor nebo kvalitní pozorování / Interview or strong observation / Entretien ou bonne observation</td><td>0–3</td></tr>
+          <tr><td>Vysvětlení manipulace / Explanation of persuasion/manipulation / Explication de la manipulation</td><td>0–4</td></tr>
+          <tr><td>Rádiový vstup / Radio report / Reportage radio</td><td>0–3</td></tr>
+        </tbody>
+      </table>
+      <div class="grid three" style="margin-top:14px;">
+        <div><label for="s1">Skupina / Group</label><select id="s1"><option>0</option><option>1</option><option>2</option></select></div>
+        <div><label for="s2">Pozorování / Observations</label><select id="s2"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+        <div><label for="s3">Marketing</label><select id="s3"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+        <div><label for="s4">Rozhovor / Interview</label><select id="s4"><option>0</option><option>1</option><option>2</option><option>3</option></select></div>
+        <div><label for="s5">Manipulace / Manipulation</label><select id="s5"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+        <div><label for="s6">Radio report</label><select id="s6"><option>0</option><option>1</option><option>2</option><option>3</option></select></div>
+      </div>
+      <label for="reflection" style="margin-top:14px;">Co si z dneška odnášíme? / What do we take away? / Qu’est-ce que nous retenons ?</label>
+      <textarea id="reflection"></textarea>
+      
+
+
+<div class="actions no-print">
+  <button id="sendBtn" class="primary" onclick="sendForm()">Odeslat / Send</button>
+  <button id="downloadBtn" class="secondary" onclick="downloadBackup()">Stáhnout zálohu / Download backup</button>
+</div>
+
+
+
+      
+
+
+
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-LbSnY99IeoULAJWBLSqxlwVcMuf4ybBNi22sQDR78xhKJnoKVZQTEzzh68cl9SKi/exec';
+
+function autosave() {
+  const fields = document.querySelectorAll('input, textarea, select');
+  const data = {};
+
+  fields.forEach(el => {
+    if (!el.id && !el.name) return;
+
+    if (el.type === 'checkbox') {
+      data[el.id] = el.checked;
+    } else if (el.type === 'radio') {
+      if (el.checked) data[el.name] = el.value;
+    } else {
+      data[el.id] = el.value;
+    }
+  });
+
+  localStorage.setItem('bookFairWorksheet', JSON.stringify(data));
+}
+
+function restore() {
+  const saved = localStorage.getItem('bookFairWorksheet');
+  if (!saved) return;
+
+  try {
+    const data = JSON.parse(saved);
+
+    Object.entries(data).forEach(([key, value]) => {
+      const byId = document.getElementById(key);
+
+      if (byId) {
+        if (byId.type === 'checkbox') {
+          byId.checked = Boolean(value);
+        } else {
+          byId.value = value;
+        }
+        return;
+      }
+
+      const radio = document.querySelector(`input[type="radio"][name="${key}"][value="${value}"]`);
+      if (radio) radio.checked = true;
+    });
+  } catch (e) {
+    console.warn('Saved data could not be restored.', e);
+  }
+}
+
+function labelText(id) {
+  const label = document.querySelector(`label[for="${id}"]`);
+  return label ? label.innerText.replace('*', '').trim() : id;
+}
+
+function validateForm() {
+  const requiredFields = [
+    'groupName',
+    'members',
+    'languages',
+    'firstImpression',
+    'bookTitle',
+    'targetAudience',
+    'coverDetails',
+    'promise',
+    'standDescription',
+    'infoOrAd',
+    'interviewPerson',
+    'interviewLang',
+    'question1',
+    'answer1',
+    'question2',
+    'answer2',
+    'manipExample',
+    'manipHow',
+    'radioScript',
+    'reflection'
+  ];
+
+  for (const id of requiredFields) {
+    const el = document.getElementById(id);
+
+    if (!el || !String(el.value).trim()) {
+      alert('Prosím doplňte všechna pole. Chybí: ' + labelText(id));
+      if (el) el.focus();
+      return false;
+    }
+  }
+
+  if (!document.querySelector('input[name="manipStrength"]:checked')) {
+    alert('Prosím vyberte jednu z možností u části Detektor manipulace.');
+    const first = document.querySelector('input[name="manipStrength"]');
+    if (first) first.focus();
+    return false;
+  }
+
+  return true;
+}
+
+function collectData() {
+  const fields = document.querySelectorAll('input, textarea, select');
+  const data = {};
+
+  fields.forEach(el => {
+    if (!el.id && !el.name) return;
+
+    if (el.type === 'checkbox') {
+      data[el.id] = el.checked ? 'ano' : 'ne';
+    } else if (el.type === 'radio') {
+      if (el.checked) data[el.name] = el.value;
+    } else {
+      data[el.id] = String(el.value || '').trim();
+    }
+  });
+
+  data.sentAt = new Date().toLocaleString('cs-CZ');
+  data.userAgent = navigator.userAgent;
+
+  return data;
+}
+
+async function sendForm() {
+  if (!validateForm()) return;
+
+  autosave();
+
+  const btn = document.getElementById('sendBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const originalText = btn ? btn.innerText : 'Odeslat / Send';
+
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = 'Odesílání...';
+  }
+  if (downloadBtn) downloadBtn.disabled = true;
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(collectData())
+    });
+
+    alert('Formulář byl odeslán do Google tabulky.');
+    localStorage.removeItem('bookFairWorksheet');
+
+  } catch (err) {
+    alert('Odeslání se nepodařilo. Zkontrolujte připojení k internetu a zkuste to znovu.');
+  }
+
+  if (btn) {
+    btn.disabled = false;
+    btn.innerText = originalText;
+  }
+  if (downloadBtn) downloadBtn.disabled = false;
+}
+
+function downloadBackup() {
+  autosave();
+  const data = collectData();
+  const filename = (data.groupName || 'book-fair-form').replace(/[^a-z0-9_-]+/gi, '_').slice(0, 40) + '.json';
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  URL.revokeObjectURL(a.href);
+  a.remove();
+}
+
+window.addEventListener('load', () => {
+  restore();
+
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', autosave);
+    el.addEventListener('change', autosave);
+  });
+});
+</script>
+
+
+
+</body>
+</html>
