@@ -242,39 +242,18 @@
         <p><strong>EN starter:</strong> Create a sensational tabloid-style news report from the book fair. This space is for your notes and outline. Don’t forget that your report must include an introduction (greeting), the main message (content), and a conclusion (call to action, motto, or wish).</p>
         <p><strong>FR starter:</strong> Créez un reportage sensationnaliste de type tabloïd sur le salon du livre. Cet espace est réservé à vos notes et à votre plan. N’oubliez pas que votre reportage doit contenir une introduction (accueil), le message principal (contenu) et une conclusion (appel à l’action, devise ou souhait)</p>
         </div>
-        
-        <div>
-          <label for="interviewLang">Jazyk rozhovoru / Interview language / Langue de l’entretien</label>
-          <input id="interviewLang" placeholder="EN / FR / CZ" />
-        </div>
-      </div>
-      <div class="grid two" style="margin-top:14px;">
-        <div>
-          <label for="question1">Otázka 1 / Question 1</label>
-          <input id="question1" value="Who is this book or stand for?" />
-          <textarea id="answer1" placeholder="Odpověď / Answer / Réponse"></textarea>
-        </div>
-        <div>
-          <label for="question2">Otázka 2 / Question 2</label>
-          <input id="question2" value="Why should people read or visit this?" />
-          <textarea id="answer2" placeholder="Odpověď / Answer / Réponse"></textarea>
-        </div>
-      </div>
-    </section>
+        <label for="tabloidNews"> </label>
+      <textarea id="tabloidNews"></textarea>
+      </section>
 
-   
-
-    <section class="card rubric">
-      <h2>7. Self-evaluation / Sebehodnocení / Auto-évaluation</h2>
+     <section class="card rubric">
+      <h2>5. Self-evaluation / Auto-évaluation</h2>
       <table>
         <thead><tr><th>Kritérium / Criterion / Critère</th><th>Body / Points</th></tr></thead>
         <tbody>
-          <tr><td>Vyplněná skupina a členové / Group and members completed / Groupe et membres remplis</td><td>0–2</td></tr>
-          <tr><td>Konkrétní pozorování z veletrhu / Specific observations / Observations concrètes</td><td>0–4</td></tr>
-          <tr><td>Analýza marketingu a cílové skupiny / Marketing and audience analysis / Analyse marketing et public cible</td><td>0–4</td></tr>
-          <tr><td>Rozhovor nebo kvalitní pozorování / Interview or strong observation / Entretien ou bonne observation</td><td>0–3</td></tr>
-          <tr><td>Vysvětlení manipulace / Explanation of persuasion/manipulation / Explication de la manipulation</td><td>0–4</td></tr>
-          <tr><td>Rádiový vstup / Radio report / Reportage radio</td><td>0–3</td></tr>
+          <tr><td>International stands observations / Observations des stands internationaux</td><td>0–4</td></tr>
+          <tr><td>Book marketing analysis / Analyse du marketing du livre</td><td>0–4</td></tr>
+          <tr><td>Tabloid New / Actualité tabloïd</td><td>0–3</td></tr>
         </tbody>
       </table>
       <div class="grid three" style="margin-top:14px;">
@@ -295,13 +274,6 @@
   <button id="pdfBtn" class="secondary" onclick="downloadPDF()">Stáhnout PDF / Download PDF</button>
     
 </div>
-
-
-
-      
-
-
-
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-LbSnY99IeoULAJWBLSqxlwVcMuf4ybBNi22sQDR78xhKJnoKVZQTEzzh68cl9SKi/exec';
@@ -369,6 +341,7 @@ function validateForm() {
     'coverDetails',
     'promise',
     'standDescription',
+    'tabloidNews',
     'infoOrAd',
     'interviewPerson',
     'interviewLang',
